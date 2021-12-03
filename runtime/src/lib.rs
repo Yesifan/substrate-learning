@@ -40,10 +40,10 @@ use pallet_transaction_payment::CurrencyAdapter;
 pub use sp_runtime::BuildStorage;
 pub use sp_runtime::{Perbill, Permill};
 
-/// Import the template pallet.
-pub use pallet_template;
 pub use pallet_kitties;
 pub use pallet_proof_existence;
+/// Import the template pallet.
+pub use pallet_template;
 
 /// An index to a block.
 pub type BlockNumber = u32;
@@ -216,10 +216,8 @@ impl pallet_grandpa::Config for Runtime {
 	type KeyOwnerProof =
 		<Self::KeyOwnerProofSystem as KeyOwnerProofSystem<(KeyTypeId, GrandpaId)>>::Proof;
 
-	type KeyOwnerIdentification = <Self::KeyOwnerProofSystem as KeyOwnerProofSystem<(
-		KeyTypeId,
-		GrandpaId,
-	)>>::IdentificationTuple;
+	type KeyOwnerIdentification =
+		<Self::KeyOwnerProofSystem as KeyOwnerProofSystem<(KeyTypeId, GrandpaId)>>::IdentificationTuple;
 
 	type HandleEquivocation = ();
 
@@ -281,9 +279,16 @@ impl pallet_template::Config for Runtime {
 	type Event = Event;
 }
 
+parameter_types! {
+	// One can own at most 9,999 Kitties
+	pub const MaxKittyOwned: u32 = 9999;
+}
+
 impl pallet_kitties::Config for Runtime {
 	type Event = Event;
 	type Currency = Balances; // <-- Add this line
+	type KittyRandomness = RandomnessCollectiveFlip;
+	type MaxKittyOwned = MaxKittyOwned; // <- add this line
 }
 
 impl pallet_proof_existence::Config for Runtime {
