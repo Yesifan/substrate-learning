@@ -4,6 +4,8 @@
 
 A fresh FRAME-based [Substrate](https://www.substrate.io/) node, ready for hacking :rocket:
 
+## 官方教程翻译
+- [使用 Substrate 创建一个 Kitties NFT 链](./docs/Build-the-Substrate-Kitties-Chain-zh.md)
 ## Getting Started
 
 Follow the steps below to get started with the Node Template, or get it up and running right from
